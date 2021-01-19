@@ -3,7 +3,8 @@ project(soundApp LANGUAGES C CXX)
 
 add_library(soundApp
         SHARED
-        SampleClass.cpp)
+        SampleClass.cpp
+        AudioEngine.cpp)
 set (OBOE_DIR ../../../../../oboe)
 add_subdirectory(${OBOE_DIR} ./oboe)
 include_directories(${OBOE_DIR}/include)
