@@ -7,6 +7,7 @@
 #include <oboe/Oboe.h>
 class AudioEngine {
 public:
+    AudioEngine();
     oboe::AudioStream* stream;
     void Start();
     ~AudioEngine();

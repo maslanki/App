@@ -1,13 +1,19 @@
+//klasa tymczasowa do komunikacji C++ <=> kotlin
+
 package com.put.soundapp
+import android.util.Log
 
-import android.content.Context
-import android.media.AudioManager
-import android.os.Build
+class PlaybackEngine {
+    private val TAG: String = PlaybackEngine::class.java.simpleName
+    external fun InitializeEngine()
 
-public class PlaybackEngine {
-    external fun startNativeEngine() : Unit
-    fun startNativeEngineFromKt(): String{
-    startNativeEngineFromKt();
-        return "success"
+    init {
+        System.loadLibrary("audioEngine")
+    }
+
+    fun StartAudioEngine(){
+        Log.d(TAG,"Uruchamianie silnika")
+        InitializeEngine()
+        Log.d(TAG,"Silnik uruchomiony?")
     }
 }
