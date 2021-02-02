@@ -5,7 +5,7 @@ import android.util.Log
 
 class PlaybackEngine {
     private val TAG: String = PlaybackEngine::class.java.simpleName
-    external fun InitializeEngine()
+    private external fun InitializeEngine()
 
     init {
         System.loadLibrary("audioEngine")

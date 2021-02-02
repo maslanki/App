@@ -20,8 +20,8 @@ class MainActivity : AppCompatActivity() {
        var startNativeButton = findViewById<Button>(R.id.startEngineButton);
         Toast.makeText(applicationContext, "Nacisnieto przycisk", Toast.LENGTH_SHORT).show()
         startNativeButton.setBackgroundColor(Color.CYAN)
-
-       playbackEngine = PlaybackEngine()
-      playbackEngine.StartAudioEngine()
+        playbackEngine = PlaybackEngine()
+        playbackEngine.StartAudioEngine()
+        startNativeButton.setBackgroundColor(Color.RED)
     }
 }
