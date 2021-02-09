@@ -24,4 +24,13 @@ class MainActivity : AppCompatActivity() {
         playbackEngine.StartAudioEngine()
         startNativeButton.setBackgroundColor(Color.RED)
     }
+
+    fun clickRecordButton(view:View){
+        var startNativeButton = findViewById<Button>(R.id.startRecordButton);
+        Toast.makeText(applicationContext, "Nagrywanie rozpoczęte", Toast.LENGTH_SHORT).show()
+        startNativeButton.setBackgroundColor(Color.CYAN)
+        //miejsce na obsługe clickon
+        startNativeButton.setBackgroundColor(Color.GREEN)
+
+    }
 }
