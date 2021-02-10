@@ -16,21 +16,20 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 
-    fun clickEngineButton(view: View){
-       var startNativeButton = findViewById<Button>(R.id.startEngineButton);
-        Toast.makeText(applicationContext, "Nacisnieto przycisk", Toast.LENGTH_SHORT).show()
-        startNativeButton.setBackgroundColor(Color.CYAN)
-        playbackEngine = PlaybackEngine()
-        playbackEngine.StartAudioEngine()
-        startNativeButton.setBackgroundColor(Color.RED)
-    }
+//    fun clickEngineButton(view: View){
+//       var startNativeButton = findViewById<Button>(R.id.startEngineButton);
+//        Toast.makeText(applicationContext, "Nacisnieto przycisk", Toast.LENGTH_SHORT).show()
+//        startNativeButton.setBackgroundColor(Color.CYAN)
+//        playbackEngine = PlaybackEngine()
+//        playbackEngine.StartAudioEngine()
+//        startNativeButton.setBackgroundColor(Color.RED)
+//    }
 
     fun clickRecordButton(view:View){
-        var startNativeButton = findViewById<Button>(R.id.startRecordButton);
+        var recordButton = findViewById<Button>(R.id.startRecordingButton);
         Toast.makeText(applicationContext, "Nagrywanie rozpoczęte", Toast.LENGTH_SHORT).show()
-        startNativeButton.setBackgroundColor(Color.CYAN)
-        //miejsce na obsługe clickon
-        startNativeButton.setBackgroundColor(Color.GREEN)
+        recordButton.text = "Recording...";
+
 
     }
 }
