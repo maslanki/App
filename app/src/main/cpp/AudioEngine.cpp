@@ -57,11 +57,16 @@ void AudioEngine::StartStream(oboe::AudioStream *stream) {
     }
 }
 
+void AudioEngine::StopStream(oboe::AudioStream *stream) {
+    if (stream) {
+        oboe::Result result = stream->stop(0L);
+    }
+}
+
 void AudioEngine::CloseStream(oboe::AudioStream *stream) {
     if (stream) {
         oboe::Result result = stream->close();
         if (result == oboe::Result::OK) stream = nullptr;
     }
 }
-
 

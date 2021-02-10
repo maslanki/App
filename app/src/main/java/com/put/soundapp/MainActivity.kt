@@ -1,6 +1,5 @@
 package com.put.soundapp
 
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -9,11 +8,12 @@ import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
     private val TAG: String = MainActivity::class.java.simpleName
-    lateinit var playbackEngine: PlaybackEngine
+    lateinit var audioEngine: AudioEngine
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        audioEngine = AudioEngine()
     }
 
 //    fun clickEngineButton(view: View){
@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity() {
         var recordButton = findViewById<Button>(R.id.startRecordingButton);
         Toast.makeText(applicationContext, "Nagrywanie rozpoczęte", Toast.LENGTH_SHORT).show()
         recordButton.text = "Recording...";
-
-
+        audioEngine.Create()
     }
 }
