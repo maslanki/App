@@ -3,24 +3,65 @@
 #include <oboe/Oboe.h>
 using namespace oboe;
 
-void AudioEngine::Start() {
-    AudioStreamBuilder builder;
-    builder.setDirection(Direction::Input);
-    builder.setPerformanceMode(PerformanceMode::LowLatency);
-    Result result = builder.openStream(&stream);
-    if (result != Result::OK) {
-        std::string message = ("Error opening stream: %s", convertToText(result));
-        return;
-    }
-    else
-    {
-        std::string message = ("Stream opened properly: %s", convertToText(result));
-        result = stream->requestStart();
-    }
+AudioEngine::AudioEngine() {
+    assert(mOutputChannelCount == mInputChannelCount); //asercja do sprawdzenia zgodności kanałów
 }
 
 AudioEngine::~AudioEngine() {
     stream->close();
+}
+
+void AudioEngine::StartRecording(){
+    OpenRecordingStream();
+    if (mRecordingStream) {
+        StartStream(mRecordingStream);
+    } else {
+        CloseStream(mRecordingStream);
+    }
+}
+
+void AudioEngine::StopRecording() {
+    StopStream(mRecordingStream);
+    CloseStream(mRecordingStream);
+}
+
+void AudioEngine::OpenRecordingStream() {
+    oboe::AudioStreamBuilder builder;
+    SetUpRecordingStreamParameters(&builder);
+    oboe::Result result = builder.openStream(&mRecordingStream);
+    if (result == oboe::Result::OK && mRecordingStream) {
+        assert(mRecordingStream->getChannelCount() == mInputChannelCount);
+        mSampleRate = mRecordingStream->getSampleRate();
+        mFormat = mRecordingStream->getFormat();
+    }
+}
+
+oboe::AudioStreamBuilder *AudioEngine::SetUpRecordingStreamParameters(oboe::AudioStreamBuilder *builder) {
+    builder->setAudioApi(mAudioApi)
+            ->setFormat(mFormat)
+            ->setSharingMode(oboe::SharingMode::Exclusive)
+            ->setPerformanceMode(oboe::PerformanceMode::LowLatency)
+            //->setCallback(&recordingCallback)
+            ->setDeviceId(mRecordingDeviceId)
+            ->setDirection(oboe::Direction::Input)
+//            ->setSampleRate(mSampleRate)
+            ->setChannelCount(mInputChannelCount);
+    return builder;
+}
+
+void AudioEngine::StartStream(oboe::AudioStream *stream) {
+
+    assert(stream);
+    if (stream) {
+        oboe::Result result = stream->requestStart();
+    }
+}
+
+void AudioEngine::CloseStream(oboe::AudioStream *stream) {
+    if (stream) {
+        oboe::Result result = stream->close();
+        if (result == oboe::Result::OK) stream = nullptr;
+    }
 }
 
 
