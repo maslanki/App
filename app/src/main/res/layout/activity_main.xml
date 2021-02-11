@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#6D4F7C"
+    android:background="@color/colorBackround"
     tools:context=".MainActivity">
 
     <!--    <Button-->
@@ -26,6 +26,8 @@
         android:onClick="clickRecordButton"
         android:text="Click to start recording"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/colorText"
+        app:chipBackgroundColor="@color/colorPrimary"
         app:chipIcon="@android:drawable/ic_btn_speak_now"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
