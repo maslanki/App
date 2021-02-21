@@ -7,10 +7,24 @@ AudioEngine *audioEngine = nullptr; //nie jestem pewna czy to nie musi być stat
 //most między cpp i kotlin
 extern "C"{
 JNIEXPORT jboolean JNICALL
-Java_com_put_soundapp_AudioEngine_Create(  JNIEnv *env,jobject obj){
+Java_com_put_soundapp_AudioEngine_Create(  JNIEnv *env, jobject obj){
     if (audioEngine == nullptr) {
         audioEngine = new AudioEngine();
     }
     return (audioEngine != nullptr);
+}
+
+JNIEXPORT void JNICALL
+Java_com_put_soundapp_AudioEngine_StartRecording(  JNIEnv *env, jobject obj){
+    if (audioEngine != nullptr) {
+        audioEngine->StartRecording();
+    }
+}
+
+JNIEXPORT void JNICALL
+Java_com_put_soundapp_AudioEngine_StopRecording(  JNIEnv *env, jobject obj){
+    if (audioEngine != nullptr) {
+        audioEngine->StopRecording();
+    }
 }
 }

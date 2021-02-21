@@ -14,21 +14,24 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         audioEngine = AudioEngine()
+        audioEngine.Create()
+
+        val startBtn : Button = findViewById<Button>(R.id.startRecordingButton);
+        startBtn.setOnClickListener { startRecording(startBtn); }
+
+        val stopBtn : Button = findViewById<Button>(R.id.stopRecordingButton);
+        stopBtn.setOnClickListener { stopRecording(startBtn); }
     }
 
-//    fun clickEngineButton(view: View){
-//       var startNativeButton = findViewById<Button>(R.id.startEngineButton);
-//        Toast.makeText(applicationContext, "Nacisnieto przycisk", Toast.LENGTH_SHORT).show()
-//        startNativeButton.setBackgroundColor(Color.CYAN)
-//        playbackEngine = PlaybackEngine()
-//        playbackEngine.StartAudioEngine()
-//        startNativeButton.setBackgroundColor(Color.RED)
-//    }
-
-    fun clickRecordButton(view:View){
-        var recordButton = findViewById<Button>(R.id.startRecordingButton);
+    private fun startRecording(startBtn: Button ){
         Toast.makeText(applicationContext, "Nagrywanie rozpoczęte", Toast.LENGTH_SHORT).show()
-        recordButton.text = "Recording...";
-        audioEngine.Create()
+        startBtn.text = "Recording...";
+        startBtn.isEnabled = false;
+        audioEngine.StartRecording()
+    }
+
+    private fun stopRecording(startBtn: Button){
+       startBtn.isEnabled = true;
+        audioEngine.StopRecording()
     }
 }

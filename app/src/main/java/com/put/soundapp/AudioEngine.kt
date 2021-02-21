@@ -1,4 +1,3 @@
-//klasa tymczasowa do komunikacji C++ <=> kotlin
 
 package com.put.soundapp
 import android.util.Log
@@ -9,4 +8,7 @@ class AudioEngine {
         System.loadLibrary("audioEngine")
     }
     external fun Create() : Boolean
+    external fun StartRecording();
+    external fun StopRecording();
+
 }

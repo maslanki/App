@@ -7,29 +7,30 @@
     android:background="#6D4F7C"
     tools:context=".MainActivity">
 
-    <!--    <Button-->
-    <!--        android:id="@+id/startEngineButton"-->
-    <!--        android:onClick="clickEngineButton"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="44dp"-->
-    <!--        android:text="Start native engine"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/textView" />-->
-
-
     <com.google.android.material.chip.Chip
         android:id="@+id/startRecordingButton"
-        android:layout_width="257dp"
-        android:layout_height="63dp"
-        android:onClick="clickRecordButton"
-        android:text="Click to start recording"
+        android:layout_width="191dp"
+        android:layout_height="81dp"
+        android:layout_marginTop="328dp"
+        android:text="Start recording"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:chipIcon="@android:drawable/ic_btn_speak_now"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/stopRecordingButton"
+        android:layout_width="195dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="10dp"
+        android:text="Stop recording"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:chipIcon="@android:drawable/ic_delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startRecordingButton"
+        app:layout_constraintVertical_bias="0.035" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
