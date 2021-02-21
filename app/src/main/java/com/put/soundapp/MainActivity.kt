@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         audioEngine = AudioEngine()
-        audioEngine.Create()
+        var isEngineCreated = audioEngine.Create()
 
         val startBtn : Button = findViewById<Button>(R.id.startRecordingButton);
         startBtn.setOnClickListener { startRecording(startBtn); }

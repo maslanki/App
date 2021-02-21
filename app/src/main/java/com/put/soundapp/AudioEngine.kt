@@ -10,5 +10,4 @@ class AudioEngine {
     external fun Create() : Boolean
     external fun StartRecording();
     external fun StopRecording();
-
 }
