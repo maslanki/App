@@ -12,41 +12,65 @@ AudioEngine::~AudioEngine() {
 }
 
 void AudioEngine::StartRecording(){
-    AudioStreamBuilder builder;
-    builder.setDirection(Direction::Input);
-    builder.setPerformanceMode(PerformanceMode::LowLatency);
-
-    AudioStream *stream;
-    Result r = builder.openStream(&stream);
-    r = stream->requestStart();
-    constexpr  int kMilis = 2;
-    const int32_t frames = (int32_t)(kMilis*(stream->getSampleRate()/kMillisPerSecond));
-    int32_t  buffer[frames];
-    constexpr int64_t timeOut = 3*kNanosPerMillisecond;
-    int framesRead = 0;
-    do{
-        auto result = stream->read(buffer,stream->getBufferSizeInFrames(),0);
-        if(result != Result::OK) break;
-        framesRead = result.value();
-    }while(framesRead != 0);
-
-
-    auto result = stream->read(buffer,frames,timeOut);
-if(result ==Result::OK){
-    double x = result.value();
-}
-//    OpenRecordingStream();
-//    if (mRecordingStream) {
-//        StartStream(mRecordingStream);
-//    } else {
-//        CloseStream(mRecordingStream);
-//    }
+    OpenRecordingStream();
+    if (mRecordingStream) {
+        StartStream(mRecordingStream);
+    } else {
+        CloseStream(mRecordingStream);
+    }
 }
 
 void AudioEngine::StopRecording() {
     StopStream(mRecordingStream);
     CloseStream(mRecordingStream);
+    StartPlayingRecorderStream();
 }
+
+void AudioEngine::StartPlayingRecorderStream(){
+    OpenPlaybackStreamFromRecordedStreamParameters();
+    if (mPlaybackStream) {
+        StartStream(mPlaybackStream);
+    } else {
+        CloseStream(mPlaybackStream);
+    }
+}
+
+void AudioEngine::OpenPlaybackStreamFromRecordedStreamParameters(){
+    oboe::AudioStreamBuilder builder;
+
+    SetUpPlaybackStreamParameters(&builder, mAudioApi, mFormat, &playingCallback, mPlaybackDeviceId, mSampleRate, mOutputChannelCount);
+
+    playingCallback.setPlaybackFromFile(false);
+
+    oboe::Result result = builder.openStream(&mPlaybackStream);
+    if (result == oboe::Result::OK && mPlaybackStream) {
+        assert(mPlaybackStream->getChannelCount() == mOutputChannelCount);
+//        assert(mPlaybackStream->getSampleRate() == mSampleRate);
+        assert(mPlaybackStream->getFormat() == mFormat);
+
+        mSampleRate = mPlaybackStream->getSampleRate();
+
+        mFramesPerBurst = mPlaybackStream->getFramesPerBurst();
+
+        // Set the buffer size to the burst size - this will give us the minimum possible latency
+        mPlaybackStream->setBufferSizeInFrames(mFramesPerBurst);
+
+    }
+}
+
+oboe::AudioStreamBuilder* AudioEngine::SetUpPlaybackStreamParameters(oboe::AudioStreamBuilder *builder, oboe::AudioApi audioApi, oboe::AudioFormat audioFormat, oboe::AudioStreamCallback *audioStreamCallback, int32_t deviceId, int32_t sampleRate, int channelCount){
+    builder->setAudioApi(audioApi)
+            ->setFormat(audioFormat)
+            ->setSharingMode(oboe::SharingMode::Exclusive)
+            ->setPerformanceMode(oboe::PerformanceMode::LowLatency)
+            ->setCallback(audioStreamCallback)
+            ->setDeviceId(deviceId)
+            ->setDirection(oboe::Direction::Output)
+            ->setSampleRate(sampleRate)
+            ->setChannelCount(channelCount);
+    return builder;
+}
+
 
 void AudioEngine::OpenRecordingStream() {
     oboe::AudioStreamBuilder builder;
@@ -64,7 +88,7 @@ oboe::AudioStreamBuilder *AudioEngine::SetUpRecordingStreamParameters(oboe::Audi
             ->setFormat(mFormat)
             ->setSharingMode(oboe::SharingMode::Exclusive)
             ->setPerformanceMode(oboe::PerformanceMode::LowLatency)
-            //->setCallback(&recordingCallback)
+            ->setCallback(&recordingCallback)
             ->setDeviceId(mRecordingDeviceId)
             ->setDirection(oboe::Direction::Input)
 //            ->setSampleRate(mSampleRate)
