@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         var isEngineCreated = audioEngine.Create()
 
         initElements();
+        checkRecordAudioPermission();
     }
 
     private fun checkRecordAudioPermission(): Boolean {
@@ -54,10 +55,20 @@ class MainActivity : AppCompatActivity() {
 
     private fun initElements(){
         startBtn  = findViewById<Button>(R.id.startRecordingButton);
-        startBtn.setOnClickListener { startRecording(); }
+        startBtn.setOnClickListener {
+            if (!checkRecordAudioPermission()) {
+                return@setOnClickListener
+            }
+            startRecording();
+        }
 
         stopBtn = findViewById<Button>(R.id.stopRecordingButton);
-        stopBtn.setOnClickListener { stopRecording(); }
+        stopBtn.setOnClickListener {
+            if (!checkRecordAudioPermission()) {
+                return@setOnClickListener
+            }
+            stopRecording();
+        }
 
         tvStatus = findViewById<TextView>(R.id.tvStatus);
     }
