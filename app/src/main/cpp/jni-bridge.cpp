@@ -17,14 +17,14 @@ Java_com_put_soundapp_AudioEngine_Create(  JNIEnv *env, jobject obj){
 JNIEXPORT void JNICALL
 Java_com_put_soundapp_AudioEngine_StartRecording(  JNIEnv *env, jobject obj){
     if (audioEngine != nullptr) {
-        audioEngine->StartRecording();
+        audioEngine->startRecording();
     }
 }
 
 JNIEXPORT void JNICALL
 Java_com_put_soundapp_AudioEngine_StopRecording(  JNIEnv *env, jobject obj){
     if (audioEngine != nullptr) {
-        audioEngine->StopRecording();
+        audioEngine->stopRecording();
     }
 }
 }

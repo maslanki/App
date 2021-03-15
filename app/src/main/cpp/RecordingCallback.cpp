@@ -6,8 +6,8 @@ oboe::DataCallbackResult RecordingCallback::onAudioReady(oboe::AudioStream *audi
     return processRecordingFrames(audioStream, static_cast<int16_t *>(audioData), numFrames * audioStream->getChannelCount());
 }
 
-oboe::DataCallbackResultRecordingCallback::processRecordingFrames(oboe::AudioStream *audioStream, int16_t *audioData, int32_t numFrames)
+oboe::DataCallbackResult RecordingCallback::processRecordingFrames(oboe::AudioStream *audioStream, int16_t *audioData, int32_t numFrames)
 {
-    int32_t framesWritten = mSoundRecording->write(audioData, numFrames);
+    int32_t framesWritten = soundRecording->write(audioData, numFrames);
     return oboe::DataCallbackResult::Continue;
 }

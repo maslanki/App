@@ -11,27 +11,22 @@ class PlayingCallback : public oboe::AudioStreamCallback {
 
 private:
     const char* TAG = "PlayingCallback:: %s";
-    SoundRecording* mSoundRecording = nullptr;
-    SndfileHandle* mFileHandle = nullptr;
+    SoundRecording* soundRecording = nullptr;
+    SndfileHandle* sndFileHandle = nullptr;
     bool isPlaybackFromFile = false;
 
 public:
     PlayingCallback() = default;
-
-    explicit PlayingCallback(SoundRecording* recording, SndfileHandle* handle) {
-        mSoundRecording = recording;
-        mFileHandle = handle;
+    explicit PlayingCallback(SoundRecording* recording, SndfileHandle* handle)
+    {
+        soundRecording = recording;
+        sndFileHandle = handle;
     }
+    oboe::DataCallbackResult onAudioReady(oboe::AudioStream *audioStream, void *audioData, int32_t numFrames); //przykrycie wirtualnych metod
+    oboe::DataCallbackResult processPlaybackFrames(oboe::AudioStream *audioStream, int16_t *audioData, int32_t numFrames);
 
     bool isPlayingFromFile() { return isPlaybackFromFile; }
     void setPlaybackFromFile(bool isFile) { isPlaybackFromFile = isFile; }
-
-    oboe::DataCallbackResult
-    onAudioReady(oboe::AudioStream *audioStream, void *audioData, int32_t numFrames);
-
-    oboe::DataCallbackResult
-    processPlaybackFrames(oboe::AudioStream *audioStream, int16_t *audioData, int32_t numFrames);
-
 };
 
 #endif //SOUNDAPP_PLAYINGCALLBACK_H
