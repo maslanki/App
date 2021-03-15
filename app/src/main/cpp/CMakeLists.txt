@@ -12,7 +12,7 @@ add_library(audioEngine
 set (OBOE_DIR ../../../../../oboe)
 add_subdirectory(${OBOE_DIR} ./oboe)
 include_directories(${OBOE_DIR}/include)
-set(LIB_SND_FILE_DIR ../../../../../libsndfile)
+set(LIB_SND_FILE_DIR ../../../../libsndfile)
 add_subdirectory(${LIB_SND_FILE_DIR} ./sndfile)
 include_directories(${LIB_SND_FILE_DIR}/src)
 target_link_libraries(audioEngine ${log-lib} oboe sndfile)
