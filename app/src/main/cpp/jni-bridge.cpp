@@ -1,11 +1,30 @@
 #include <jni.h>
 #include "AudioEngine.h"
 
+AudioEngine *audioEngine = nullptr; //nie jestem pewna czy to nie musi być static
+//ale statici są niebezpieczne wiec sprobujmy bez na razie
+
 //most między cpp i kotlin
 extern "C"{
+JNIEXPORT jboolean JNICALL
+Java_com_put_soundapp_AudioEngine_Create(  JNIEnv *env, jobject obj){
+    if (audioEngine == nullptr) {
+        audioEngine = new AudioEngine();
+    }
+    return (audioEngine != nullptr);
+}
+
 JNIEXPORT void JNICALL
-Java_com_put_soundapp_PlaybackEngine_InitializeEngine(  JNIEnv *env,jobject obj){
-    AudioEngine *audioEngine = new(std::nothrow) AudioEngine();
-    audioEngine->Start();
+Java_com_put_soundapp_AudioEngine_StartRecording(  JNIEnv *env, jobject obj){
+    if (audioEngine != nullptr) {
+        audioEngine->StartRecording();
+    }
+}
+
+JNIEXPORT void JNICALL
+Java_com_put_soundapp_AudioEngine_StopRecording(  JNIEnv *env, jobject obj){
+    if (audioEngine != nullptr) {
+        audioEngine->StopRecording();
+    }
 }
 }
