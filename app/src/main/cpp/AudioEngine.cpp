@@ -71,7 +71,6 @@ oboe::AudioStreamBuilder* AudioEngine::SetUpPlaybackStreamParameters(oboe::Audio
     return builder;
 }
 
-
 void AudioEngine::OpenRecordingStream() {
     oboe::AudioStreamBuilder builder;
     SetUpRecordingStreamParameters(&builder);
@@ -97,7 +96,6 @@ oboe::AudioStreamBuilder *AudioEngine::SetUpRecordingStreamParameters(oboe::Audi
 }
 
 void AudioEngine::StartStream(oboe::AudioStream *stream) {
-
     assert(stream);
     if (stream) {
         oboe::Result result = stream->requestStart();

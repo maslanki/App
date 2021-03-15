@@ -31,7 +31,6 @@ private:
 
     SoundRecording mSoundRecording;
 
-
     oboe::AudioApi mAudioApi = oboe::AudioApi::AAudio;
     oboe::AudioFormat mFormat = oboe::AudioFormat::I16;
     oboe::AudioStream *mRecordingStream = nullptr;

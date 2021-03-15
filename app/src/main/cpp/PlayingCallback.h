@@ -1,10 +1,5 @@
-//
-// Created by User on 14.03.2021.
-//
-
 #ifndef SOUNDAPP_PLAYINGCALLBACK_H
 #define SOUNDAPP_PLAYINGCALLBACK_H
-
 
 #include "../../../../../oboe/include/oboe/AudioStreamCallback.h"
 #include "SoundRecording.h"
