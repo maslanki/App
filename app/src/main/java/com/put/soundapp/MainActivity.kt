@@ -12,14 +12,13 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 
 class MainActivity : AppCompatActivity() {
-    private val AUDIO_RECORD_REQUEST = 12446
     private val PERMISSIONS = arrayOf(
         Manifest.permission.RECORD_AUDIO,
         Manifest.permission.READ_EXTERNAL_STORAGE,
         Manifest.permission.WRITE_EXTERNAL_STORAGE
     )
+    private val AUDIO_RECORD_REQUEST = 12446
     lateinit var audioEngine: AudioEngine
-
     lateinit var startBtn : Button
     lateinit var stopBtn: Button
     lateinit var tvStatus : TextView;
@@ -35,38 +34,25 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkRecordAudioPermission(): Boolean {
-        Log.d(TAG, "checkRecordAudioPermission: ")
-
         val isRecordingAllowed = isRecordPermissionGranted()
-        Log.i(TAG, "checkRecordAudioPermission: $isRecordingAllowed")
-
         if (!isRecordingAllowed) {
-
             requestRecordPermission()
             disableControls()
         }
-        else {
-
-            enableControls()
-        }
-
+        else enableControls()
         return isRecordingAllowed
     }
 
     private fun initElements(){
         startBtn  = findViewById<Button>(R.id.startRecordingButton);
         startBtn.setOnClickListener {
-            if (!checkRecordAudioPermission()) {
-                return@setOnClickListener
-            }
+            if (!checkRecordAudioPermission()) return@setOnClickListener
             startRecording();
         }
 
         stopBtn = findViewById<Button>(R.id.stopRecordingButton);
         stopBtn.setOnClickListener {
-            if (!checkRecordAudioPermission()) {
-                return@setOnClickListener
-            }
+            if (!checkRecordAudioPermission()) return@setOnClickListener
             stopRecording();
         }
 
@@ -81,36 +67,29 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun stopRecording(){
-       startBtn.isEnabled = true;
-       audioEngine.StopRecording()
+        startBtn.isEnabled = true;
+        startBtn.text = "Start recording";
+        audioEngine.StopRecording()
     }
 
     private fun isRecordPermissionGranted(): Boolean {
         val permissionStatus = (ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED)
                 &&(ActivityCompat .checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
                 &&(ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
-
-        Log.d(TAG, "isRecordPermissionGranted: $permissionStatus")
         return permissionStatus
     }
 
     private fun requestRecordPermission() {
-        Log.d(TAG, "requestRecordPermission: ")
         ActivityCompat.requestPermissions(this, PERMISSIONS, AUDIO_RECORD_REQUEST)
     }
 
     private fun enableControls() {
-        Log.d(TAG, "enableControls: ")
         tvStatus.text = ""
         startBtn.isEnabled = true
         stopBtn.isEnabled = true
     }
 
     private fun disableControls() {
-        Log.d(TAG, "disableControls: ")
-
-        //tvStatus.text = getString(R.string.need_record_audio_permission)
-        tvStatus.text = "wymagane uprawnienia do audio";
         startBtn.isEnabled = false
         stopBtn.isEnabled = false
     }
