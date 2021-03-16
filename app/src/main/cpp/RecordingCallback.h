@@ -1,7 +1,3 @@
-//
-// Created by User on 14.03.2021.
-//
-
 #ifndef SOUNDAPP_RECORDINGCALLBACK_H
 #define SOUNDAPP_RECORDINGCALLBACK_H
 
@@ -14,21 +10,13 @@ class RecordingCallback : public oboe::AudioStreamCallback {
 
 private:
     const char* TAG = "RecordingCallback:: %s";
-    SoundRecording* mSoundRecording = nullptr;
+    SoundRecording* soundRecording = nullptr;
 
 public:
     RecordingCallback() = default;
-
-    explicit RecordingCallback(SoundRecording* recording) {
-        mSoundRecording = recording;
-    }
-
-    oboe::DataCallbackResult
-    onAudioReady(oboe::AudioStream *audioStream, void *audioData, int32_t numFrames);
-
-    oboe::DataCallbackResult
-    processRecordingFrames(oboe::AudioStream *audioStream, int16_t *audioData, int32_t numFrames);
+    explicit RecordingCallback(SoundRecording* recording) { soundRecording = recording; }
+    oboe::DataCallbackResult onAudioReady(oboe::AudioStream *audioStream, void *audioData, int32_t numFrames); //przykrycie wirtualnych metod
+    oboe::DataCallbackResult processRecordingFrames(oboe::AudioStream *audioStream, int16_t *audioData, int32_t numFrames);
 };
-
 
 #endif //SOUNDAPP_RECORDINGCALLBACK_H

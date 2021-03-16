@@ -1,15 +1,10 @@
-//
-// Created by User on 14.03.2021.
-//
-
 #ifndef SOUNDAPP_SOUNDRECORDING_H
 #define SOUNDAPP_SOUNDRECORDING_H
 
 #include <sndfile.hh>
+
 constexpr int kMaxSamples = 480000; // 10s of audio data @ 48kHz
-
 class SoundRecording {
-
 public:
     int32_t write(const int16_t *sourceData, int32_t numSamples);
     int32_t read(int16_t *targetData, int32_t numSamples);
@@ -35,12 +30,10 @@ private:
     std::atomic<int32_t> mReadIndex { 0 };
     std::atomic<int32_t> mTotalSamples { 0 };
     std::atomic<bool> mIsLooping { false };
-
     int16_t* mData = new int16_t[kMaxSamples]{0};
 
     // 6 Decibels gain on audio signal
     int16_t gain_factor = 2;
 };
-
 
 #endif //SOUNDAPP_SOUNDRECORDING_H

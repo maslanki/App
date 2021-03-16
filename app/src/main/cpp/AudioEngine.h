@@ -1,9 +1,6 @@
-//
-// Created by User on 19.01.2021.
-//
-
 #ifndef SOUNDAPP_AUDIOENGINE_H
 #define SOUNDAPP_AUDIOENGINE_H
+
 #include <oboe/Oboe.h>
 #include "RecordingCallback.h"
 #include "PlayingCallback.h"
@@ -13,39 +10,37 @@ class AudioEngine {
 public:
     AudioEngine();
     ~AudioEngine();
-    void StartRecording();
-    void StopRecording();
-    void StartPlayingRecorderStream();
-    oboe::AudioStream* stream;
-    RecordingCallback recordingCallback = RecordingCallback(&mSoundRecording);
-    PlayingCallback playingCallback = PlayingCallback(&mSoundRecording, &sndFileHandle);
+    void startRecording();
+    void stopRecording();
+    void startPlayingRecorderStream();
 
+    oboe::AudioStream* stream;
+    RecordingCallback recordingCallback = RecordingCallback(&soundRecording);
+    PlayingCallback playingCallback = PlayingCallback(&soundRecording, &sndFileHandle);
 
 private:
-    int32_t mInputChannelCount = oboe::ChannelCount::Stereo;
-    int32_t mOutputChannelCount = oboe::ChannelCount::Stereo;
-    int32_t mRecordingDeviceId = oboe::VoiceRecognition;
-    int32_t mSampleRate = oboe::kUnspecified;
-    int32_t mPlaybackDeviceId = 6;
-    int32_t mFramesPerBurst;
+    void openRecordingStream();
+    void startStream(oboe::AudioStream *stream);
+    void stopStream(oboe::AudioStream *stream);
+    void closeStream(oboe::AudioStream *stream);
+    void openPlaybackStreamFromRecordedStreamParameters();
+    oboe::AudioStreamBuilder* setUpRecordingStreamParameters(oboe::AudioStreamBuilder* builder);
+    oboe::AudioStreamBuilder* setUpPlaybackStreamParameters(oboe::AudioStreamBuilder *builder, oboe::AudioApi audioApi, oboe::AudioFormat audioFormat, oboe::AudioStreamCallback *audioStreamCallback, int32_t deviceId, int32_t sampleRate, int channelCount);
 
-    SoundRecording mSoundRecording;
+    int32_t inputChannelCount = oboe::ChannelCount::Stereo;
+    int32_t outputChannelCount = oboe::ChannelCount::Stereo;
+    int32_t recordingDeviceId = oboe::VoiceRecognition;
+    int32_t sampleRate = oboe::kUnspecified;
+    int32_t playbackDeviceId = 6;
+    int32_t framesPerBurst;
 
+    SoundRecording soundRecording;
 
-    oboe::AudioApi mAudioApi = oboe::AudioApi::AAudio;
-    oboe::AudioFormat mFormat = oboe::AudioFormat::I16;
-    oboe::AudioStream *mRecordingStream = nullptr;
-    oboe::AudioStream *mPlaybackStream = nullptr;
+    oboe::AudioApi audioApi = oboe::AudioApi::AAudio;
+    oboe::AudioFormat audioFormat = oboe::AudioFormat::I16;
+    oboe::AudioStream *recordingStream = nullptr;
+    oboe::AudioStream *playbackStream = nullptr;
     SndfileHandle sndFileHandle;
-
-    void OpenRecordingStream();
-    oboe::AudioStreamBuilder* SetUpRecordingStreamParameters(oboe::AudioStreamBuilder* builder);
-    void StartStream(oboe::AudioStream *stream);
-    void StopStream(oboe::AudioStream *stream);
-    void CloseStream(oboe::AudioStream *stream);
-    void OpenPlaybackStreamFromRecordedStreamParameters();
-    oboe::AudioStreamBuilder* SetUpPlaybackStreamParameters(oboe::AudioStreamBuilder *builder, oboe::AudioApi audioApi, oboe::AudioFormat audioFormat, oboe::AudioStreamCallback *audioStreamCallback, int32_t deviceId, int32_t sampleRate, int channelCount);
-
 };
 
 
