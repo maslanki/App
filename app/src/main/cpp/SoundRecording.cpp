@@ -22,8 +22,9 @@ int32_t SoundRecording::write(const int16_t *sourceData, int32_t numSamples) {
 
 int32_t SoundRecording::read(int16_t *targetData, int32_t numSamples) {
     int32_t framesRead = 0;
+    float totalSamples = static_cast<float >(numSamples);
     while (framesRead < numSamples && mReadIndex < mTotalSamples) {
-        targetData[framesRead++] = mData[mReadIndex++];
+        targetData[framesRead++] = mData[mReadIndex++] * sin(2.0 * static_cast<float>(framesRead) * M_PI/ totalSamples);
         if (mIsLooping && mReadIndex == mTotalSamples) mReadIndex = 0;
     }
     return framesRead;
