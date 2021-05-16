@@ -7,6 +7,7 @@ add_library(audioEngine
         RecordingCallback.cpp
         PlayingCallback.cpp
         SoundRecording.cpp
+        Calculator.cpp
         jni-bridge.cpp)
 
 set (OBOE_DIR ../../../../../oboe)

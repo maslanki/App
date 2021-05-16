@@ -1,6 +1,7 @@
 package com.put.soundapp
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import com.google.android.material.chip.Chip
 
 class MainActivity : AppCompatActivity() {
     private val PERMISSIONS = arrayOf(
@@ -22,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var startBtn : Button
     lateinit var stopBtn: Button
     lateinit var tvStatus : TextView;
+    lateinit var switchActivityBtn: Button;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +58,12 @@ class MainActivity : AppCompatActivity() {
             if (!checkRecordAudioPermission()) return@setOnClickListener
             stopRecording();
         }
+
+        switchActivityBtn = findViewById<Button>(R.id.switchActivityChip);
+        switchActivityBtn.setOnClickListener({
+            val intent = Intent(this, AddNumberActivity::class.java)
+            startActivity(intent)
+        })
 
         tvStatus = findViewById<TextView>(R.id.tvStatus);
     }

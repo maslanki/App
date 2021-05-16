@@ -10,4 +10,6 @@ class AudioEngine {
     external fun Create() : Boolean
     external fun StartRecording();
     external fun StopRecording();
+    external fun PlusOne() : Int;
+    external fun PlusOneByTf() : Int;
 }
