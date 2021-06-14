@@ -1,6 +1,7 @@
 #include <jni.h>
 #include "AudioEngine.h"
 #include <oboe/Oboe.h>
+
 using namespace oboe;
 
 AudioEngine::AudioEngine() {
