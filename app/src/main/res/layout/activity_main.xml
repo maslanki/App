@@ -11,7 +11,7 @@
         android:id="@+id/startRecordingButton"
         android:layout_width="191dp"
         android:layout_height="81dp"
-        android:layout_marginTop="328dp"
+        android:layout_marginTop="250dp"
         android:text="Start recording"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/colorText"
@@ -41,9 +41,29 @@
         android:id="@+id/tvStatus"
         android:layout_width="88dp"
         android:layout_height="13dp"
+        android:layout_marginTop="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/stopRecordingButton" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/switchActivityChip"
+        android:layout_width="124dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="30dp"
+        android:text="Switch"
+        android:textAlignment="viewStart"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/colorText"
+        android:visibility="visible"
+        app:chipBackgroundColor="@color/colorPrimary"
+        app:chipIcon="@android:drawable/ic_menu_set_as"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stopRecordingButton"
+        tools:text="Switch" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

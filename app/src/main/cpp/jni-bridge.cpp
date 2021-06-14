@@ -1,13 +1,14 @@
 #include <jni.h>
 #include "AudioEngine.h"
+#include "Calculator.h"
 
 AudioEngine *audioEngine = nullptr; //nie jestem pewna czy to nie musi być static
-//ale statici są niebezpieczne wiec sprobujmy bez na razie
+Calculator *calculator = new Calculator();
 
 //most między cpp i kotlin
-extern "C"{
+extern "C" {
 JNIEXPORT jboolean JNICALL
-Java_com_put_soundapp_AudioEngine_Create(  JNIEnv *env, jobject obj){
+Java_com_put_soundapp_AudioEngine_Create(JNIEnv *env, jobject obj) {
     if (audioEngine == nullptr) {
         audioEngine = new AudioEngine();
     }
@@ -15,16 +16,25 @@ Java_com_put_soundapp_AudioEngine_Create(  JNIEnv *env, jobject obj){
 }
 
 JNIEXPORT void JNICALL
-Java_com_put_soundapp_AudioEngine_StartRecording(  JNIEnv *env, jobject obj){
+Java_com_put_soundapp_AudioEngine_StartRecording(JNIEnv *env, jobject obj) {
     if (audioEngine != nullptr) {
         audioEngine->startRecording();
     }
 }
 
 JNIEXPORT void JNICALL
-Java_com_put_soundapp_AudioEngine_StopRecording(  JNIEnv *env, jobject obj){
+Java_com_put_soundapp_AudioEngine_StopRecording(JNIEnv *env, jobject obj) {
     if (audioEngine != nullptr) {
         audioEngine->stopRecording();
     }
+}
+
+JNIEXPORT int JNICALL
+Java_com_put_soundapp_AudioEngine_PlusOne(JNIEnv *env, jobject obj) {
+    return calculator->plusOne();
+}
+JNIEXPORT int JNICALL
+Java_com_put_soundapp_AudioEngine_PlusOneByTf(JNIEnv *env, jobject obj) {
+    return calculator->plusOneByTensorFlow();
 }
 }
