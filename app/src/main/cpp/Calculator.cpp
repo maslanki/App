@@ -1,7 +1,9 @@
 #include "Calculator.h"
 
-
 Calculator::Calculator(){
+    //model* = TfLiteModelCreateFromFile("");
+    //*interpreter = TfLiteInterpreterCreate(model);
+    //TfLiteInterpreterAllocateTensors(interpreter);
     number = 0;
 }
 
