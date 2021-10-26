@@ -3,7 +3,7 @@
 
 #include "../../../../../oboe/include/oboe/AudioStreamCallback.h"
 #include "SoundRecording.h"
-#include "../../../../../libsndfile/src/sndfile.hh"
+#include "../../../../libsndfile/src/sndfile.hh"
 #include "../../../../../../../AppData/Local/Android/Sdk/ndk/21.1.6352462/toolchains/llvm/prebuilt/windows-x86_64/sysroot/usr/include/c++/v1/cstdint"
 #include "../../../../../oboe/include/oboe/Definitions.h"
 
