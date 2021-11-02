@@ -8,7 +8,3 @@ Calculator::Calculator(){
 int Calculator::plusOne() {
     return ++number;
 }
-
-int Calculator::plusOneByTensorFlow() {
-    return number;
-}
