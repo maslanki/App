@@ -5,7 +5,7 @@ import android.util.Log
 class AudioEngine {
     private val TAG: String = AudioEngine::class.java.simpleName
     init {
-        System.loadLibrary("audioEngine")
+        System.loadLibrary("soundApp")
     }
     external fun Create() : Boolean
     external fun StartRecording();
